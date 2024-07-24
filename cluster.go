@@ -1139,7 +1139,9 @@ func (c *ClusterClient) loadState() (*clusterState, error) {
 	}
 
 	var firstErr error
-	for _, addr := range addrs {
+
+	for _, index := range rand.Perm(len(addrs)) {
+		addr := addrs[index]
 		node, err := c.nodes.GetOrCreate(addr)
 		if err != nil {
 			if firstErr == nil {
