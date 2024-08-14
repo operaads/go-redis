@@ -485,14 +485,7 @@ func (cmd *DurationCmd) readReply(rd *proto.Reader) error {
 	if cmd.err != nil {
 		return cmd.err
 	}
-	switch n {
-	// -2 if the key does not exist
-	// -1 if the key exists but has no associated expire
-	case -2, -1:
-		cmd.val = time.Duration(n)
-	default:
-		cmd.val = time.Duration(n) * cmd.precision
-	}
+	cmd.val = time.Duration(n) * cmd.precision
 	return nil
 }
 
